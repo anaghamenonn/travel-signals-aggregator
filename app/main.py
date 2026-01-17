@@ -17,6 +17,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    return {
+        "status": "ok",
+        "message": "Travel Signals Aggregator API is running",
+        "docs": "/docs"
+    }
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+
 @app.get("/travel-signal", response_model=AggregatedResponse)
 async def travel_signal(
     destination: str,
